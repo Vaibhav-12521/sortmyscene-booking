@@ -1,6 +1,5 @@
 const formatters = new Map();
 
-/** Format an integer amount as currency (no decimals), memoized per currency. */
 export function money(amount, currency = 'INR') {
   const code = currency || 'INR';
   if (!formatters.has(code)) {
@@ -14,7 +13,7 @@ export function money(amount, currency = 'INR') {
         })
       );
     } catch {
-      // Invalid currency code — fall back to a plain number formatter.
+
       formatters.set(code, new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }));
     }
   }

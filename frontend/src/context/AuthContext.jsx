@@ -8,7 +8,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // On first load, if we have a token, fetch the current user to validate it.
+
   useEffect(() => {
     let active = true;
     async function bootstrap() {

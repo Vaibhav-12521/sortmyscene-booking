@@ -1,10 +1,5 @@
 import { Component } from 'react';
 
-/**
- * Catches render-time errors anywhere below it and shows a recoverable message
- * instead of a blank white screen. Without this, a single thrown error unmounts
- * the whole React tree.
- */
 export default class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +11,7 @@ export default class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, info) {
-    // eslint-disable-next-line no-console
+
     console.error('[ErrorBoundary]', error, info);
   }
 

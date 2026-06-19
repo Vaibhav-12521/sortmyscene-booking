@@ -2,7 +2,6 @@ import { asyncHandler } from '../utils/asyncHandler.js';
 import { confirmBooking } from '../services/booking.service.js';
 import { Booking } from '../models/Booking.js';
 
-/** POST /api/bookings — confirm a reservation into a booking. */
 export const createBooking = asyncHandler(async (req, res) => {
   const { reservationId } = req.body;
 
@@ -22,7 +21,6 @@ export const createBooking = asyncHandler(async (req, res) => {
   });
 });
 
-/** GET /api/bookings/me — the authenticated user's booking history. */
 export const listMyBookings = asyncHandler(async (req, res) => {
   const bookings = await Booking.find({ userId: req.user.id })
     .sort({ createdAt: -1 })

@@ -21,7 +21,7 @@ export const reserveSchema = z.object({
     .array(z.string().trim().min(1))
     .min(1, 'Select at least one seat')
     .max(10, 'You can reserve at most 10 seats at once')
-    // de-duplicate while preserving validation of non-empty entries
+
     .transform((seats) => [...new Set(seats)]),
 });
 

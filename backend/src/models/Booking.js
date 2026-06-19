@@ -15,7 +15,7 @@ const bookingSchema = new mongoose.Schema(
       index: true,
     },
     seatNumbers: { type: [String], required: true },
-    // Snapshot of the reservation this booking was confirmed from.
+
     reservationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' },
   },
   { timestamps: true }

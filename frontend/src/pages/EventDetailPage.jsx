@@ -14,7 +14,7 @@ import Spinner from '../components/Spinner.jsx';
 import { pageTransition, scaleIn } from '../animations/variants.js';
 
 const PHASE = { SELECTING: 'selecting', RESERVED: 'reserved', BOOKED: 'booked' };
-const POLL_MS = 15000; // realtime is primary; polling is a backstop
+const POLL_MS = 15000;
 
 const dateFmt = new Intl.DateTimeFormat('en-IN', { dateStyle: 'full', timeStyle: 'short' });
 
@@ -43,7 +43,7 @@ export default function EventDetailPage() {
     [seats]
   );
 
-  // Drop selected seats that are no longer available (taken by someone else).
+
   const pruneSelection = useCallback((available) => {
     setSelected((prev) => {
       const next = new Set([...prev].filter((sn) => available.has(sn)));
@@ -69,7 +69,7 @@ export default function EventDetailPage() {
     [id, pruneSelection]
   );
 
-  // Initial load.
+
   useEffect(() => {
     let active = true;
     (async () => {
@@ -87,7 +87,7 @@ export default function EventDetailPage() {
     };
   }, [fetchEvent]);
 
-  // Realtime seat updates via Socket.IO.
+
   useEffect(() => {
     socket.connect();
     const onConnect = () => {
@@ -101,7 +101,7 @@ export default function EventDetailPage() {
       setSeats((prev) =>
         prev.map((s) => (changes.has(s.seatNumber) ? { ...s, status: changes.get(s.seatNumber) } : s))
       );
-      // Only prune the user's picks while they're still choosing.
+
       if (phaseRef.current === PHASE.SELECTING) {
         setSelected((prev) => {
           const next = new Set(
@@ -128,7 +128,7 @@ export default function EventDetailPage() {
     };
   }, [id]);
 
-  // Backstop polling in case the socket drops.
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (phaseRef.current === PHASE.SELECTING) fetchEvent({ prune: true }).catch(() => {});
@@ -191,7 +191,7 @@ export default function EventDetailPage() {
     setReservation(null);
     setSelected(new Set());
     setPhase(PHASE.SELECTING);
-    setInfo('Your reservation hold expired. The seats have been released — please select again.');
+    setInfo('Your reservation hold expired. The seats have been released - please select again.');
     fetchEvent({ prune: true }).catch(() => {});
   }, [fetchEvent]);
 

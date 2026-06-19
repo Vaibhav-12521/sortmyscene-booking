@@ -5,13 +5,12 @@ export const notFoundHandler = (req, _res, next) => {
   next(ApiError.notFound(`Route not found: ${req.method} ${req.originalUrl}`));
 };
 
-// eslint-disable-next-line no-unused-vars
 export const errorHandler = (err, _req, res, _next) => {
   let statusCode = err.statusCode || 500;
   let message = err.message || 'Internal server error';
   let details = err.details;
 
-  // Mongoose / MongoDB specific translations into clean client errors.
+
   if (err.name === 'ValidationError') {
     statusCode = 400;
     message = 'Validation failed';
@@ -29,7 +28,7 @@ export const errorHandler = (err, _req, res, _next) => {
   }
 
   if (statusCode >= 500) {
-    // eslint-disable-next-line no-console
+
     console.error('[error]', err);
   }
 

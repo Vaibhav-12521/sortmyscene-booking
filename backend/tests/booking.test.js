@@ -81,7 +81,7 @@ describe('reservation + booking happy path', () => {
     expect(booking.seatNumbers.sort()).toEqual(['A1', 'A2']);
     const booked = await Seat.find({ seatNumber: { $in: ['A1', 'A2'] } });
     expect(booked.every((s) => s.status === SEAT_STATUS.BOOKED)).toBe(true);
-    // Reservation is removed after booking.
+
     expect(await Reservation.findById(reservation.id)).toBeNull();
   });
 });
@@ -93,7 +93,7 @@ describe('double-booking prevention under concurrency', () => {
       Array.from({ length: 12 }, (_, i) => makeUser(`u${i}@test.com`))
     );
 
-    // Everyone races for the same single seat at the same time.
+
     const results = await Promise.allSettled(
       users.map((u) =>
         reserveSeats({ userId: u.id, eventId: event.id, seatNumbers: ['A1'] })
@@ -105,7 +105,7 @@ describe('double-booking prevention under concurrency', () => {
 
     expect(succeeded).toHaveLength(1);
     expect(failed).toHaveLength(11);
-    // Every failure is a 409 conflict, not a crash.
+
     expect(failed.every((r) => r.reason.statusCode === 409)).toBe(true);
 
     const seat = await Seat.findOne({ seatNumber: 'A1' });
@@ -119,11 +119,11 @@ describe('double-booking prevention under concurrency', () => {
       makeUser('bob@test.com'),
     ]);
 
-    // Alice holds A1.
+
     await reserveSeats({ userId: alice.id, eventId: event.id, seatNumbers: ['A1'] });
 
-    // Bob asks for A1 + A2 — A1 is taken, so the whole request must fail and
-    // A2 must remain available (compensation rolled it back).
+
+
     await expect(
       reserveSeats({ userId: bob.id, eventId: event.id, seatNumbers: ['A2', 'A1'] })
     ).rejects.toMatchObject({ statusCode: 409 });
@@ -145,7 +145,7 @@ describe('expired reservations', () => {
       seatNumbers: ['B1'],
     });
 
-    // Force the hold into the past.
+
     const past = new Date(Date.now() - 1000);
     await Reservation.updateOne({ _id: reservation.id }, { $set: { expiresAt: past } });
     await Seat.updateOne({ seatNumber: 'B1' }, { $set: { reservedUntil: past } });

@@ -1,6 +1,3 @@
-# Render Blueprint for the SortMyScene backend (Express + Socket.IO).
-# Render runs a persistent Node process, so WebSockets and the background
-# sweeper work (unlike serverless). Deploy: New → Blueprint → pick this repo.
 services:
   - type: web
     name: sortmyscene-api
@@ -13,20 +10,15 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
-      # Required — your MongoDB Atlas connection string. Set in the dashboard.
       - key: MONGODB_URI
         sync: false
-      # Auto-generated strong secret for signing JWTs.
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: RESERVATION_TTL_MINUTES
         value: "10"
-      # Seed demo data on first boot if the DB is empty.
       - key: SEED_ON_START
         value: "true"
-      # Set to your Vercel URL after the frontend is deployed (locks down CORS).
-      # Leave unset initially to allow all origins while wiring things up.
       - key: CLIENT_ORIGIN
         sync: false

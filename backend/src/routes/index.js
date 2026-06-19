@@ -13,9 +13,8 @@ router.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
 router.use('/auth', authRoutes);
 router.use('/events', eventRoutes);
-router.use('/bookings', bookingRoutes); // POST /bookings, GET /bookings/me
+router.use('/bookings', bookingRoutes);
 
-// Reserving requires authentication.
 router.post('/reserve', requireAuth, validate(reserveSchema), createReservation);
 
 export default router;

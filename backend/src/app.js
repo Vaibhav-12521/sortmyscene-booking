@@ -10,8 +10,8 @@ import { notFoundHandler, errorHandler } from './middleware/errorHandler.js';
 export function createApp() {
   const app = express();
 
-  // Behind a hosting proxy (Render/Heroku/etc.) trust the first hop so req.ip
-  // and rate limiting use the real client IP from X-Forwarded-For.
+
+
   if (isProd) app.set('trust proxy', 1);
 
   app.use(helmet());
@@ -24,7 +24,7 @@ export function createApp() {
   app.use(express.json());
   if (!isProd) app.use(morgan('dev'));
 
-  // Light rate limiting to blunt brute-force / abuse on the API.
+
   app.use(
     '/api',
     rateLimit({

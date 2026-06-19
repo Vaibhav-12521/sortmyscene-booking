@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 const COLORS = ['#0f766e', '#c98a16', '#2f7d52', '#18120e', '#cfc8ba'];
 
-/** Lightweight CSS confetti burst. Generates pieces once on mount. */
 export default function Confetti({ count = 44 }) {
   const pieces = useMemo(
     () =>

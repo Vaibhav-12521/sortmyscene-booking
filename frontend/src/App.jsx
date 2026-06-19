@@ -14,7 +14,7 @@ export default function App() {
     <>
       <Navbar />
       <main className="main">
-        {/* Animate page swaps. key by pathname so each route mounts/unmounts. */}
+        {}
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route

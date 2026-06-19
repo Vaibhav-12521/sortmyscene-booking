@@ -1,6 +1,3 @@
-# One-command full stack: MongoDB + API (with realtime) + web.
-#   docker compose up --build
-# Then open http://localhost:8080  (demo@sortmyscene.test / password123)
 services:
   mongo:
     image: mongo:7
@@ -25,9 +22,7 @@ services:
       MONGODB_URI: mongodb://mongo:27017/sortmyscene
       JWT_SECRET: change-me-in-production
       RESERVATION_TTL_MINUTES: 10
-      # Seed demo data on first boot (only if the DB is empty).
       SEED_ON_START: 'true'
-      # Allow the web origin for CORS / Socket.IO.
       CLIENT_ORIGIN: http://localhost:8080
     ports:
       - '4000:4000'

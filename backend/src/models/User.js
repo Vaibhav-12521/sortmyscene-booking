@@ -25,7 +25,6 @@ userSchema.statics.hashPassword = function hashPassword(plain) {
   return bcrypt.hash(plain, 10);
 };
 
-// Never leak the password hash through JSON responses.
 userSchema.set('toJSON', {
   virtuals: true,
   transform: (_doc, ret) => {

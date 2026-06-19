@@ -1,5 +1,5 @@
 :root {
-  /* ---- Palette: warm paper + ink + one accent ---- */
+
   --bg: #f3f1ec;
   --bg-2: #eceae3;
   --surface: #ffffff;
@@ -10,7 +10,7 @@
   --border: #e2ddd2;
   --border-strong: #cfc8ba;
 
-  /* single accent — deep teal */
+
   --accent: #0f766e;
   --accent-dark: #0b5a54;
   --accent-soft: #e3f1ef;
@@ -18,7 +18,7 @@
   --reserved: #c98a16;
   --reserved-soft: #fbf1da;
 
-  /* pricing tiers */
+
   --tier-vip: #9a6a1e;
   --tier-premium: #2f6f6a;
   --tier-standard: #8a8378;
@@ -53,12 +53,8 @@ a:hover { color: var(--accent-dark); }
 ::-webkit-scrollbar { width: 11px; height: 11px; }
 ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 10px; border: 3px solid var(--bg); }
 
-/* Aurora component is no longer used; keep a no-op so any stray markup is hidden. */
 .aurora { display: none; }
 
-/* ============================================================
-   Layout
-   ============================================================ */
 .main { max-width: 1080px; margin: 0 auto; padding: 40px 24px 80px; position: relative; z-index: 1; }
 
 .page__header { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 34px; }
@@ -73,9 +69,6 @@ a:hover { color: var(--accent-dark); }
   color: var(--accent); font-weight: 700; margin-bottom: 14px;
 }
 
-/* ============================================================
-   Navbar
-   ============================================================ */
 .navbar { position: sticky; top: 0; z-index: 50; background: rgba(243, 241, 236, 0.88); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
 .navbar__inner { max-width: 1080px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
 .navbar__brand { font-weight: 800; font-size: 1.25rem; letter-spacing: -0.4px; color: var(--ink); display: flex; align-items: center; gap: 9px; }
@@ -87,9 +80,6 @@ a:hover { color: var(--accent-dark); }
 .navbar__link { color: var(--text); font-size: 0.9rem; font-weight: 600; }
 .navbar__link:hover { color: var(--accent); }
 
-/* ============================================================
-   Buttons
-   ============================================================ */
 .btn {
   border: 1px solid transparent; border-radius: var(--radius-sm);
   padding: 11px 18px; font-size: 0.92rem; font-weight: 600; cursor: pointer;
@@ -106,14 +96,8 @@ a:hover { color: var(--accent-dark); }
 .btn--ghost:hover { background: var(--bg-2); }
 .btn--block { display: block; width: 100%; margin-top: 12px; }
 
-/* ============================================================
-   Cards
-   ============================================================ */
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow-sm); }
 
-/* ============================================================
-   Events grid + cards
-   ============================================================ */
 .grid--cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
 
 .event-card {
@@ -136,9 +120,6 @@ a:hover { color: var(--accent-dark); }
 .pill--success { background: var(--success-soft); color: var(--success); }
 .pill--danger { background: var(--danger-soft); color: var(--danger); }
 
-/* ============================================================
-   Booking layout
-   ============================================================ */
 .booking-layout { display: grid; grid-template-columns: 1fr 320px; gap: 22px; align-items: start; }
 .event-detail__header { margin-bottom: 24px; }
 .event-detail__avail { color: var(--text-soft); margin: 12px 0 0; font-size: 0.92rem; display: inline-flex; align-items: center; gap: 8px; }
@@ -147,10 +128,6 @@ a:hover { color: var(--accent-dark); }
 @keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(47,125,82,0.5);} 70% { box-shadow: 0 0 0 6px rgba(47,125,82,0);} 100% { box-shadow: 0 0 0 0 rgba(47,125,82,0);} }
 .event-detail__livetag { margin-left: 6px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); }
 
-/* ============================================================
-   Seat map
-   ============================================================ */
-/* Curved stage */
 .seatmap__stage {
   display: flex; justify-content: center; margin: 2px auto 34px; max-width: 70%;
 }
@@ -168,7 +145,6 @@ a:hover { color: var(--accent-dark); }
 .seatmap__rowlabel { width: 16px; text-align: center; font-size: 0.68rem; color: var(--text-dim); font-weight: 700; flex: 0 0 auto; }
 .seatmap__hint { text-align: center; color: var(--text-dim); font-size: 0.74rem; margin: 18px 0 0; }
 
-/* Tier section headers */
 .seatmap__tier {
   display: flex; align-items: center; gap: 8px; margin: 16px 0 9px;
   font-size: 0.74rem; font-weight: 700; color: var(--text-soft); letter-spacing: 0.4px;
@@ -180,21 +156,20 @@ a:hover { color: var(--accent-dark); }
 .seatmap__tier--standard .seatmap__tier-dot { background: var(--tier-standard); }
 .seatmap__tier-price { margin-left: auto; color: var(--ink); font-variant-numeric: tabular-nums; }
 
-/* Seat — chair-like shape */
 .seat {
   position: relative; width: 30px; height: 28px; border-radius: 8px 8px 5px 5px;
   border: 1.5px solid var(--border-strong); background: var(--surface);
   font-size: 0.64rem; color: var(--text-dim); cursor: pointer; flex: 0 0 auto;
   transition: transform 0.12s ease, background 0.14s, border-color 0.14s, color 0.14s;
 }
-/* little arm-rests / cushion base */
+
 .seat::after {
   content: ''; position: absolute; left: -2px; right: -2px; bottom: -3px; height: 3px;
   border-radius: 3px; background: var(--border-strong); transition: background 0.14s;
 }
 .seat:not(:disabled):hover { transform: translateY(-3px); border-color: var(--accent); color: var(--accent); }
 .seat:not(:disabled):hover::after { background: var(--accent); }
-/* tier hint on available seats: a coloured top edge */
+
 .seat--available.seat--tier-vip { border-top-color: var(--tier-vip); }
 .seat--available.seat--tier-premium { border-top-color: var(--tier-premium); }
 .seat--available.seat--tier-standard { border-top-color: var(--border-strong); }
@@ -207,15 +182,11 @@ a:hover { color: var(--accent-dark); }
 .seat--booked::after { background: var(--border); }
 .seat:disabled { cursor: not-allowed; }
 
-/* Legend */
 .legend { display: flex; flex-wrap: wrap; gap: 18px; list-style: none; padding: 0; margin: 0 0 24px; }
 .legend__item { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--text-soft); }
 .legend__swatch { width: 19px; height: 19px; cursor: default; }
 .legend__swatch:hover { transform: none; }
 
-/* ============================================================
-   Selection panel
-   ============================================================ */
 .booking-layout__panel { position: sticky; top: 94px; }
 .panel__title { margin: 0 0 16px; font-size: 1.1rem; font-weight: 700; color: var(--ink); }
 .panel__empty { color: var(--text-dim); font-size: 0.88rem; line-height: 1.55; }
@@ -228,18 +199,12 @@ a:hover { color: var(--accent-dark); }
 .chip__price { font-size: 0.72rem; font-weight: 600; color: var(--text-soft); }
 .chip--solid { background: var(--accent); color: #fff; border-color: var(--accent); }
 
-/* ============================================================
-   Countdown
-   ============================================================ */
 .countdown { display: flex; flex-direction: column; align-items: center; gap: 4px; border-radius: var(--radius-sm); padding: 16px; margin: 18px 0 4px; background: var(--reserved-soft); border: 1px solid var(--reserved); }
 .countdown__label { font-size: 0.68rem; color: var(--reserved); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
 .countdown__clock { font-size: 2.2rem; font-weight: 800; color: var(--reserved); font-variant-numeric: tabular-nums; line-height: 1; }
 .countdown--urgent { background: var(--danger-soft); border-color: var(--danger); }
 .countdown--urgent .countdown__label, .countdown--urgent .countdown__clock { color: var(--danger); }
 
-/* ============================================================
-   Confirmation
-   ============================================================ */
 .confirmation { text-align: center; max-width: 520px; margin: 24px auto; position: relative; overflow: hidden; }
 .confirmation h2 { font-size: 1.6rem; margin: 8px 0; color: var(--ink); }
 .confirmation__check { width: 72px; height: 72px; margin: 0 auto 18px; border-radius: 50%; background: var(--success-soft); color: var(--success); font-size: 2.2rem; display: flex; align-items: center; justify-content: center; border: 2px solid var(--success); animation: checkPop 0.5s cubic-bezier(.34,1.56,.64,1); }
@@ -255,9 +220,6 @@ a:hover { color: var(--accent-dark); }
 .confetti i { position: absolute; top: -12px; width: 8px; height: 13px; opacity: 0.9; animation: drop linear forwards; }
 @keyframes drop { to { transform: translateY(130%) rotate(540deg); opacity: 0; } }
 
-/* ============================================================
-   Auth
-   ============================================================ */
 .auth { display: flex; justify-content: center; padding-top: 44px; }
 .auth__card { width: 100%; max-width: 420px; }
 .auth__title { margin: 0 0 8px; font-size: 1.6rem; font-weight: 800; color: var(--ink); letter-spacing: -0.4px; }
@@ -265,7 +227,6 @@ a:hover { color: var(--accent-dark); }
 .auth__switch { margin-top: 20px; font-size: 0.9rem; color: var(--text-soft); text-align: center; }
 .auth__hint { margin-top: 12px; font-size: 0.77rem; color: var(--text-dim); text-align: center; background: var(--bg-2); padding: 10px; border-radius: 7px; }
 
-/* Forms */
 .form { display: flex; flex-direction: column; gap: 16px; }
 .field { display: flex; flex-direction: column; gap: 7px; font-size: 0.85rem; font-weight: 600; color: var(--text); }
 .field input {
@@ -277,9 +238,6 @@ a:hover { color: var(--accent-dark); }
 .field input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 .field__hint { font-weight: 400; color: var(--text-dim); font-size: 0.77rem; }
 
-/* ============================================================
-   Alerts
-   ============================================================ */
 .alert { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 15px; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 0.89rem; border: 1px solid transparent; }
 .alert--error { background: var(--danger-soft); color: var(--danger); border-color: #eaccc8; }
 .alert--success { background: var(--success-soft); color: var(--success); border-color: #c6ddce; }
@@ -287,22 +245,17 @@ a:hover { color: var(--accent-dark); }
 .alert--info { background: #eef1f6; color: #3a4a63; border-color: #d3dae6; }
 .alert__close { background: none; border: 0; font-size: 1.3rem; cursor: pointer; color: inherit; line-height: 1; }
 
-/* ============================================================
-   Spinner / misc
-   ============================================================ */
 .spinner { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 64px; color: var(--text-soft); }
 .spinner__ring { width: 38px; height: 38px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .empty { color: var(--text-dim); padding: 60px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; }
 
-/* Error boundary fallback */
 .errorbox { display: flex; justify-content: center; padding: 60px 20px; }
 .errorbox__card { max-width: 520px; text-align: center; }
 .errorbox__card h1 { margin: 0 0 10px; font-size: 1.4rem; color: var(--ink); }
 .errorbox__detail { background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-size: 0.8rem; color: var(--danger); text-align: left; overflow-x: auto; white-space: pre-wrap; }
 .errorbox__actions { display: flex; gap: 12px; justify-content: center; margin-top: 18px; }
 
-/* My bookings */
 .bookings { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
 .booking-item__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .booking-item__head h3 { margin: 0; font-size: 1.1rem; color: var(--ink); }
@@ -314,9 +267,6 @@ a:hover { color: var(--accent-dark); }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
 
-/* ============================================================
-   Responsive
-   ============================================================ */
 @media (max-width: 860px) {
   .booking-layout { grid-template-columns: 1fr; }
   .booking-layout__panel { position: static; }

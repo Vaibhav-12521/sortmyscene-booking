@@ -1,4 +1,4 @@
-// Shared framer-motion variants so motion feels consistent across the app.
+
 
 export const pageTransition = {
   initial: { opacity: 0, y: 14 },
@@ -7,7 +7,6 @@ export const pageTransition = {
   transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
 };
 
-// Parent that staggers its children's entrance.
 export const staggerContainer = {
   hidden: { opacity: 1 },
   show: {
@@ -30,5 +29,4 @@ export const scaleIn = {
   show: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
 };
 
-// Spring used for seats and other tactile elements.
 export const springPop = { type: 'spring', stiffness: 500, damping: 28 };

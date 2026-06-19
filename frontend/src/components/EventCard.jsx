@@ -12,7 +12,7 @@ export default function EventCard({ event }) {
   const navigate = useNavigate();
   const soldOut = event.availableSeats === 0;
 
-  // Track the cursor to position the card's radial glow.
+
   const handleMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`);

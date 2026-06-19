@@ -12,17 +12,12 @@ export const tokenStore = {
   clear: () => localStorage.removeItem(TOKEN_KEY),
 };
 
-// Attach the bearer token to every request when present.
 api.interceptors.request.use((config) => {
   const token = tokenStore.get();
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 
-/**
- * Normalize axios errors into a consistent shape so UI code can rely on
- * `err.message`, `err.status`, and `err.details` (e.g. taken seat numbers).
- */
 export function toApiError(error) {
   if (error.response) {
     const { status, data } = error.response;

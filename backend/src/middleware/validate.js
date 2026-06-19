@@ -1,9 +1,5 @@
 import { ApiError } from '../utils/ApiError.js';
 
-/**
- * Validates `req[source]` against a Zod schema. On success the parsed (and
- * coerced) value replaces the original so downstream handlers get clean data.
- */
 export const validate = (schema, source = 'body') => (req, _res, next) => {
   const result = schema.safeParse(req[source]);
   if (!result.success) {

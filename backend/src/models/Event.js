@@ -8,7 +8,7 @@ const eventSchema = new mongoose.Schema(
     startsAt: { type: Date, required: true },
     totalSeats: { type: Number, required: true, min: 1 },
     currency: { type: String, default: 'INR' },
-    // Seat layout is convenience metadata for rendering the grid on the client.
+
     rows: { type: Number, required: true, min: 1 },
     columns: { type: Number, required: true, min: 1 },
   },

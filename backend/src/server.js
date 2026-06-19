@@ -10,15 +10,15 @@ import { Event } from './models/Event.js';
 const SWEEP_INTERVAL_MS = 30 * 1000;
 
 async function maybeSeed() {
-  // In-memory always seeds (it starts empty). For a real DB, seed only when
-  // SEED_ON_START=true AND the DB has no events yet — never clobber real data.
+
+
   if (isEphemeralDB()) {
     console.log('[db] Seeding demo data into in-memory database…');
     await seedDatabase((msg) => console.log(`      ${msg}`));
     return;
   }
   if (config.seedOnStart && (await Event.estimatedDocumentCount()) === 0) {
-    console.log('[db] SEED_ON_START set and DB empty — seeding demo data…');
+    console.log('[db] SEED_ON_START set and DB empty - seeding demo data…');
     await seedDatabase((msg) => console.log(`      ${msg}`));
   }
 }
@@ -29,25 +29,25 @@ async function start() {
 
   const app = createApp();
   const server = http.createServer(app);
-  initRealtime(server); // Socket.IO shares the HTTP server
+  initRealtime(server);
 
   server.listen(config.port, () => {
-    // eslint-disable-next-line no-console
+
     console.log(`[server] SortMyScene API + realtime on http://localhost:${config.port}`);
   });
 
-  // Periodically free seats whose holds have lapsed.
+
   const sweeper = setInterval(() => {
     sweepExpired().catch((err) => {
-      // eslint-disable-next-line no-console
+
       console.error('[sweeper]', err.message);
     });
   }, SWEEP_INTERVAL_MS);
   sweeper.unref();
 
   const shutdown = async (signal) => {
-    // eslint-disable-next-line no-console
-    console.log(`\n[server] ${signal} received — shutting down`);
+
+    console.log(`\n[server] ${signal} received - shutting down`);
     clearInterval(sweeper);
     server.close();
     await disconnectDB();
@@ -59,7 +59,7 @@ async function start() {
 }
 
 start().catch((err) => {
-  // eslint-disable-next-line no-console
+
   console.error('[server] Failed to start:', err);
   process.exit(1);
 });

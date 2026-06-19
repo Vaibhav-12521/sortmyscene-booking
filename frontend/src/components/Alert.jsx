@@ -1,4 +1,3 @@
-/** Inline message banner. variant: 'error' | 'success' | 'info' | 'warning'. */
 export default function Alert({ variant = 'info', children, onClose }) {
   if (!children) return null;
   return (

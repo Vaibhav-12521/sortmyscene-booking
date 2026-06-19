@@ -1,7 +1,3 @@
-/**
- * Operational error with an HTTP status code. Thrown anywhere in the request
- * lifecycle and translated into a JSON response by the global error handler.
- */
 export class ApiError extends Error {
   constructor(statusCode, message, details = undefined) {
     super(message);

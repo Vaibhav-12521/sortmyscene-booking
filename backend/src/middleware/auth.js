@@ -3,9 +3,6 @@ import { config } from '../config/env.js';
 import { ApiError } from '../utils/ApiError.js';
 import { User } from '../models/User.js';
 
-/**
- * Requires a valid Bearer token. Attaches the authenticated user to req.user.
- */
 export const requireAuth = async (req, _res, next) => {
   try {
     const header = req.headers.authorization || '';

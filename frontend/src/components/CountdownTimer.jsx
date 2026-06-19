@@ -1,6 +1,5 @@
 import { useCountdown } from '../hooks/useCountdown.js';
 
-/** Visual countdown to a reservation's expiry; calls onExpire once at zero. */
 export default function CountdownTimer({ expiresAt, onExpire }) {
   const { mmss, remainingMs } = useCountdown(expiresAt, onExpire);
   const urgent = remainingMs > 0 && remainingMs < 60 * 1000;

@@ -1,7 +1,6 @@
 import { asyncHandler } from '../utils/asyncHandler.js';
 import { reserveSeats } from '../services/booking.service.js';
 
-/** POST /api/reserve — hold seats for the configured TTL. */
 export const createReservation = asyncHandler(async (req, res) => {
   const { eventId, seatNumbers } = req.body;
 

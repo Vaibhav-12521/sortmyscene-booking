@@ -6,10 +6,9 @@ import { createBooking, listMyBookings } from '../controllers/booking.controller
 
 const router = Router();
 
-// All booking routes require authentication.
 router.use(requireAuth);
 
 router.get('/me', listMyBookings);
-router.post('/', validate(bookingSchema), createBooking); // POST /api/bookings
+router.post('/', validate(bookingSchema), createBooking);
 
 export default router;

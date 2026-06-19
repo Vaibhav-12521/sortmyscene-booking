@@ -3,7 +3,6 @@ import { ApiError } from '../utils/ApiError.js';
 import { Event } from '../models/Event.js';
 import { Seat } from '../models/Seat.js';
 
-/** Serialize a seat with its effective (expiry-aware) status for the client. */
 const serializeSeat = (seat, now) => ({
   id: seat.id,
   seatNumber: seat.seatNumber,
@@ -14,12 +13,11 @@ const serializeSeat = (seat, now) => ({
   status: seat.effectiveStatus(now),
 });
 
-/** GET /api/events — list all events with a live availability summary. */
 export const listEvents = asyncHandler(async (_req, res) => {
   const now = new Date();
   const events = await Event.find().sort({ startsAt: 1 }).lean({ virtuals: true });
 
-  // Compute available seat counts in one grouped aggregation.
+
   const counts = await Seat.aggregate([
     {
       $project: {
@@ -69,7 +67,6 @@ export const listEvents = asyncHandler(async (_req, res) => {
   res.json({ events: payload });
 });
 
-/** GET /api/events/:id — single event with full seat map. */
 export const getEvent = asyncHandler(async (req, res) => {
   const now = new Date();
   const event = await Event.findById(req.params.id);

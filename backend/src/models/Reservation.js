@@ -31,10 +31,6 @@ const reservationSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// TTL index: MongoDB auto-deletes expired reservation documents. This is a
-// backstop — seat freeing is handled explicitly by the sweeper/lazy expiry so
-// state stays consistent. We give a 1h grace so booked/expired docs linger
-// briefly for traceability before cleanup.
 reservationSchema.index(
   { expiresAt: 1 },
   { expireAfterSeconds: 60 * 60, partialFilterExpression: { status: RESERVATION_STATUS.ACTIVE } }

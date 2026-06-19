@@ -1,4 +1,4 @@
-# SortMyScene — Event Ticket Booking
+# SortMyScene - Event Ticket Booking
 
 A simplified event ticket booking flow focused on **seat reservation** and **booking
 confirmation**, built for the SortMyScene Full Stack Developer hiring task.
@@ -20,19 +20,21 @@ zero-setup **in-memory MongoDB**, and one-command **Docker Compose**.
 
 ---
 
-## Live deployment
+## Live demo
 
-Deploy the whole stack on free tiers — **Vercel** (frontend) + **Render** (backend) +
-**MongoDB Atlas** (DB) — which keeps real-time seats and the sweeper working. The repo
-ships a `render.yaml` blueprint and a `frontend/vercel.json`. Full step-by-step:
-**[DEPLOYMENT.md](DEPLOYMENT.md)**.
+**App:** https://sortmyscene-booking-three.vercel.app
+**Login:** `demo@sortmyscene.test` / `password123`
 
-<!-- After deploying, add your live URL here:
-**Live demo:** https://your-app.vercel.app  ·  demo@sortmyscene.test / password123 -->
+> Tip: open it on two devices at once and reserve a seat on one - it updates live on the other.
+> The backend is on Render's free tier, so the first request after it's been idle may take ~30-50s to wake.
+
+Hosted as **Vercel** (frontend) + **Render** (backend) + **MongoDB Atlas** (DB), which keeps
+real-time seats and the sweeper working. The repo ships a `render.yaml` blueprint and a
+`frontend/vercel.json`. Full step-by-step: **[DEPLOYMENT.md](DEPLOYMENT.md)**.
 
 ---
 
-## Quick start (Docker — one command)
+## Quick start (Docker - one command)
 
 ```bash
 docker compose up --build
@@ -46,14 +48,14 @@ first boot.
 
 You do **not** need to install or run MongoDB to try this. If `MONGODB_URI` is not set,
 the backend boots an **in-memory MongoDB** and **auto-seeds demo events** on startup.
-(Data is ephemeral and resets on restart — see [Persistent DB](#using-a-persistent-database).)
+(Data is ephemeral and resets on restart - see [Persistent DB](#using-a-persistent-database).)
 
 ### 1. Backend
 
 ```bash
 cd backend
 npm install
-cp .env.example .env      # optional — sensible defaults work out of the box
+cp .env.example .env      # optional - sensible defaults work out of the box
 npm run dev               # http://localhost:4000
 ```
 
@@ -85,13 +87,13 @@ All booking actions require a `Authorization: Bearer <token>` header.
 
 | Method | Endpoint            | Auth | Description                                            |
 | ------ | ------------------- | ---- | ------------------------------------------------------ |
-| POST   | `/api/auth/register`| —    | Create an account, returns `{ user, token }`           |
-| POST   | `/api/auth/login`   | —    | Log in, returns `{ user, token }`                      |
+| POST   | `/api/auth/register`| -    | Create an account, returns `{ user, token }`           |
+| POST   | `/api/auth/login`   | -    | Log in, returns `{ user, token }`                      |
 | GET    | `/api/auth/me`      | ✓    | Current user                                           |
-| GET    | `/api/events`       | —    | List events with live available-seat counts           |
-| GET    | `/api/events/:id`   | —    | Single event + full seat map (expiry-aware statuses)   |
-| POST   | `/api/reserve`      | ✓    | Hold seats for 10 min — `{ eventId, seatNumbers }`     |
-| POST   | `/api/bookings`     | ✓    | Confirm a reservation — `{ reservationId }`            |
+| GET    | `/api/events`       | -    | List events with live available-seat counts           |
+| GET    | `/api/events/:id`   | -    | Single event + full seat map (expiry-aware statuses)   |
+| POST   | `/api/reserve`      | ✓    | Hold seats for 10 min - `{ eventId, seatNumbers }`     |
+| POST   | `/api/bookings`     | ✓    | Confirm a reservation - `{ reservationId }`            |
 | GET    | `/api/bookings/me`  | ✓    | The current user's booking history                     |
 
 Error responses are consistent: `{ "error": { "message", "details?" } }`.
@@ -99,19 +101,19 @@ Conflicts (`409`) on reserve include the offending seats in `details.seats`.
 
 **Realtime (Socket.IO):** clients `emit('event:join', eventId)` to join an event room
 and receive `seats:changed` `{ eventId, seats: [{ seatNumber, status }] }` whenever seats
-are reserved, booked, released, or expire — so every open seat map stays in sync without
+are reserved, booked, released, or expire - so every open seat map stays in sync without
 polling.
 
 ---
 
 ## Data model (MongoDB)
 
-- **Event** — `name`, `description`, `venue`, `startsAt`, `totalSeats`, `rows`, `columns`, `currency`
-- **Seat** — `eventId`, `seatNumber`, `row`, `column`, `tier` (`vip`/`premium`/`standard`), `price`, `status` (`available` | `reserved` |
+- **Event** - `name`, `description`, `venue`, `startsAt`, `totalSeats`, `rows`, `columns`, `currency`
+- **Seat** - `eventId`, `seatNumber`, `row`, `column`, `tier` (`vip`/`premium`/`standard`), `price`, `status` (`available` | `reserved` |
   `booked`), `reservedUntil`, `reservationId`
-- **Reservation** — `userId`, `eventId`, `seatNumbers`, `expiresAt`, `status`
-- **Booking** — `userId`, `eventId`, `seatNumbers`, `reservationId` (confirmation record)
-- **User** — `name`, `email`, `passwordHash`
+- **Reservation** - `userId`, `eventId`, `seatNumbers`, `expiresAt`, `status`
+- **Booking** - `userId`, `eventId`, `seatNumbers`, `reservationId` (confirmation record)
+- **User** - `name`, `email`, `passwordHash`
 
 Each seat is its own document with a unique `(eventId, seatNumber)` index.
 
@@ -153,7 +155,7 @@ only if it still belongs to that reservation **and** the hold hasn't expired
 The same service functions that mutate seats (reserve / book / release / sweep) emit a
 `seats:changed` event to the event's Socket.IO room. The frontend merges those deltas
 into its seat map instantly, so a seat another user grabs turns amber for everyone
-without a refresh — and if it was in your selection while you were still choosing, it's
+without a refresh - and if it was in your selection while you were still choosing, it's
 removed with a heads-up message. A 15s poll remains as a backstop if the socket drops.
 The emitter no-ops when realtime isn't initialised, so the unit tests run unchanged.
 
@@ -166,11 +168,11 @@ is purely additive to the brief's data model.
 
 ### Reservation expiry (three layers)
 
-1. **Lazy** — a `reserved` seat whose `reservedUntil` has passed is treated as available
+1. **Lazy** - a `reserved` seat whose `reservedUntil` has passed is treated as available
    in availability reads and is re-claimable by the conditional update above.
-2. **Sweeper** — a background job (every 30s) frees lapsed seats and marks lapsed
+2. **Sweeper** - a background job (every 30s) frees lapsed seats and marks lapsed
    reservations `expired`, covering downtime gaps.
-3. **TTL index** — MongoDB auto-removes stale reservation documents as a backstop.
+3. **TTL index** - MongoDB auto-removes stale reservation documents as a backstop.
 
 The frontend countdown calls the same release path when it hits `00:00`, and the API
 still rejects an expired confirmation regardless of client behaviour.
@@ -183,7 +185,7 @@ still rejects an expired confirmation regardless of client behaviour.
   UI code can rely on `{ status, message, details }`.
 - **Component-based React** with hooks (`useState`/`useEffect`/`useCallback` + a custom
   `useCountdown`), an `AuthContext`, and `ProtectedRoute` for gated pages.
-- **Live availability** — the seat map polls every 7s while selecting and prunes picks
+- **Live availability** - the seat map polls every 7s while selecting and prunes picks
   that someone else grabbed, plus surfaces `409` conflicts at reserve/book time
   (the "seat became unavailable between selection and booking" requirement).
 - **`mongodb-memory-server`** so reviewers can run the whole stack with zero setup.
@@ -226,7 +228,7 @@ npm run seed
 ```
 
 When `MONGODB_URI` is set, auto-seeding on boot is disabled and your data persists.
-(Set `SEED_ON_START=true` to auto-seed a real DB on first boot only if it's empty — this
+(Set `SEED_ON_START=true` to auto-seed a real DB on first boot only if it's empty - this
 is what Docker Compose uses.)
 
 ---
@@ -262,7 +264,7 @@ is what Docker Compose uses.)
 - Up to 10 seats may be reserved in a single request (configurable in the validator).
 - The 10-minute hold is configurable via `RESERVATION_TTL_MINUTES`.
 - Seat **tiers and prices** are assigned at seed time by row; payment is simulated (no
-  real gateway) — confirming a booking is the "pay" step.
+  real gateway) - confirming a booking is the "pay" step.
 - The in-memory database is for local/demo/test convenience only; production should set
   `MONGODB_URI`.
 
@@ -278,8 +280,8 @@ SortMyScene/
 │   ├── src/
 │   │   ├── config/        # env + DB connection (with in-memory fallback)
 │   │   ├── models/        # User, Event, Seat, Reservation, Booking
-│   │   ├── services/      # booking.service.js — atomic reserve/book/sweep + emits
-│   │   ├── realtime/      # io.js — Socket.IO server + seat broadcasts
+│   │   ├── services/      # booking.service.js - atomic reserve/book/sweep + emits
+│   │   ├── realtime/      # io.js - Socket.IO server + seat broadcasts
 │   │   ├── controllers/   # thin HTTP handlers
 │   │   ├── routes/        # /auth, /events, /reserve, /bookings
 │   │   ├── middleware/    # auth, validation, error handling

@@ -2,11 +2,6 @@ import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { money, TIER_LABELS } from '../utils/format.js';
 
-/**
- * Modern tiered seat map: a curved stage, seats grouped into pricing tiers
- * (VIP / Premium / Standard) with section headers, and a centre aisle. Seats
- * are colour-coded by status; available seats are selectable when interactive.
- */
 export default function SeatGrid({ seats, selected, onToggle, interactive, currency = 'INR' }) {
   const { rows, aisleAfter } = useMemo(() => {
     const grouped = new Map();
@@ -72,7 +67,7 @@ export default function SeatGrid({ seats, selected, onToggle, interactive, curre
                         aria-label={`Seat ${seat.seatNumber}, ${TIER_LABELS[seat.tier]} ${money(
                           seat.price,
                           currency
-                        )} — ${isSelected ? 'selected' : seat.status}`}
+                        )} - ${isSelected ? 'selected' : seat.status}`}
                         title={`${seat.seatNumber} · ${TIER_LABELS[seat.tier]} · ${money(seat.price, currency)} (${seat.status})`}
                         onClick={() => canClick && onToggle(seat.seatNumber)}
                       >

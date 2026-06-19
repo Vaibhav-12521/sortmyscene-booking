@@ -23,7 +23,7 @@ const seatSchema = new mongoose.Schema(
     seatNumber: { type: String, required: true },
     row: { type: Number, required: true },
     column: { type: Number, required: true },
-    // Pricing tier and per-seat price (in the event's minor-unit-free currency).
+
     tier: {
       type: String,
       enum: Object.values(SEAT_TIER),
@@ -36,8 +36,8 @@ const seatSchema = new mongoose.Schema(
       default: SEAT_STATUS.AVAILABLE,
       index: true,
     },
-    // Set while a seat is held by a reservation. Used for atomic claims and
-    // lazy expiry — a reserved seat whose hold has elapsed is treated as free.
+
+
     reservedUntil: { type: Date, default: null },
     reservationId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -48,14 +48,8 @@ const seatSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// A seat number is unique within an event. This guarantees the seed/grid never
-// creates duplicates and gives us a natural key for lookups.
 seatSchema.index({ eventId: 1, seatNumber: 1 }, { unique: true });
 
-/**
- * Effective status from the client's perspective: a reserved seat whose hold
- * has expired should render as available even before the sweeper frees it.
- */
 seatSchema.methods.effectiveStatus = function effectiveStatus(now = new Date()) {
   if (
     this.status === SEAT_STATUS.RESERVED &&
@@ -70,7 +64,7 @@ seatSchema.methods.effectiveStatus = function effectiveStatus(now = new Date()) 
 seatSchema.set('toJSON', {
   virtuals: true,
   transform: (_doc, ret) => {
-    ret.status = ret.status; // keep raw status
+    ret.status = ret.status;
     delete ret.__v;
     return ret;
   },
