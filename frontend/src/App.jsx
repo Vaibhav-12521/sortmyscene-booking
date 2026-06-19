@@ -1,22 +1,24 @@
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'framer-motion';
+import { lazy, Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Spinner from './components/Spinner.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import EventsPage from './pages/EventsPage.jsx';
-import EventDetailPage from './pages/EventDetailPage.jsx';
-import MyBookingsPage from './pages/MyBookingsPage.jsx';
+
+// Heavy, interactive pages are code-split so the initial bundle (login + events)
+// stays small and loads fast. framer-motion only downloads with these chunks.
+const EventDetailPage = lazy(() => import('./pages/EventDetailPage.jsx'));
+const MyBookingsPage = lazy(() => import('./pages/MyBookingsPage.jsx'));
 
 export default function App() {
-  const location = useLocation();
   return (
     <>
       <Navbar />
       <main className="main">
-        {}
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
+        <Suspense fallback={<Spinner label="Loading…" />}>
+          <Routes>
             <Route
               path="/"
               element={
@@ -45,7 +47,7 @@ export default function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
-        </AnimatePresence>
+        </Suspense>
       </main>
     </>
   );

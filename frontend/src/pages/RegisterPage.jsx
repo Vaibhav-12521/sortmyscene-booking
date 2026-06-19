@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext.jsx';
 import Alert from '../components/Alert.jsx';
-import { pageTransition } from '../animations/variants.js';
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -23,7 +21,6 @@ export default function RegisterPage() {
       await register(form);
       navigate('/', { replace: true });
     } catch (err) {
-      // Surface field-level validation details if the API returned them.
       const detail = err.details?.[0]?.message;
       setError(detail ? `${err.message}: ${detail}` : err.message);
     } finally {
@@ -32,7 +29,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <motion.div className="auth" {...pageTransition}>
+    <div className="auth fade-in">
       <div className="card auth__card">
         <span className="eyebrow">Join the scene</span>
         <h1 className="auth__title">Create your account</h1>
@@ -68,6 +65,6 @@ export default function RegisterPage() {
           Already have an account? <Link to="/login">Log in</Link>
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }

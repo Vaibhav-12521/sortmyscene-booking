@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext.jsx';
 import Alert from '../components/Alert.jsx';
-import { pageTransition } from '../animations/variants.js';
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -32,7 +30,7 @@ export default function LoginPage() {
   };
 
   return (
-    <motion.div className="auth" {...pageTransition}>
+    <div className="auth fade-in">
       <div className="card auth__card">
         <span className="eyebrow">Member access</span>
         <h1 className="auth__title">Welcome back</h1>
@@ -70,6 +68,6 @@ export default function LoginPage() {
         </p>
         <p className="auth__hint">Demo: demo@sortmyscene.test / password123</p>
       </div>
-    </motion.div>
+    </div>
   );
 }

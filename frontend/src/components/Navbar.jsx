@@ -1,5 +1,4 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function Navbar() {
@@ -12,12 +11,7 @@ export default function Navbar() {
   };
 
   return (
-    <motion.header
-      className="navbar"
-      initial={{ y: -64, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-    >
+    <header className="navbar">
       <div className="navbar__inner">
         <Link to="/" className="navbar__brand">
           <span className="dot" />
@@ -44,6 +38,6 @@ export default function Navbar() {
           )}
         </nav>
       </div>
-    </motion.header>
+    </header>
   );
 }

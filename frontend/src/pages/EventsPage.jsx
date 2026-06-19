@@ -1,11 +1,25 @@
 import { useEffect, useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
 import { eventApi } from '../api/endpoints.js';
 import { toApiError } from '../api/client.js';
 import EventCard from '../components/EventCard.jsx';
 import Alert from '../components/Alert.jsx';
-import Spinner from '../components/Spinner.jsx';
-import { pageTransition, staggerContainer } from '../animations/variants.js';
+
+function SkeletonCard() {
+  return (
+    <div className="card skel-card">
+      <div className="skel-card__row">
+        <div className="skel" style={{ width: 58, height: 58, flex: '0 0 auto' }} />
+        <div style={{ flex: 1 }}>
+          <div className="skel skel-line" style={{ width: '80%' }} />
+          <div className="skel skel-line" style={{ width: '55%' }} />
+          <div className="skel skel-line" style={{ width: '40%' }} />
+        </div>
+      </div>
+      <div className="skel skel-line" style={{ width: '100%', marginTop: 18 }} />
+      <div className="skel skel-line" style={{ width: '30%', marginTop: 18, height: 16 }} />
+    </div>
+  );
+}
 
 export default function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -30,7 +44,7 @@ export default function EventsPage() {
   }, [load]);
 
   return (
-    <motion.div className="page" {...pageTransition}>
+    <div className="page fade-in">
       <div className="page__header">
         <div>
           <span className="eyebrow">Now booking</span>
@@ -47,21 +61,20 @@ export default function EventsPage() {
       <Alert variant="error" onClose={() => setError('')}>{error}</Alert>
 
       {loading ? (
-        <Spinner label="Loading events…" />
+        <div className="grid grid--cards">
+          {Array.from({ length: 6 }).map((_, i) => (
+            <SkeletonCard key={i} />
+          ))}
+        </div>
       ) : events.length === 0 ? (
         <p className="empty">No events available right now.</p>
       ) : (
-        <motion.div
-          className="grid grid--cards"
-          variants={staggerContainer}
-          initial="hidden"
-          animate="show"
-        >
+        <div className="grid grid--cards">
           {events.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
-        </motion.div>
+        </div>
       )}
-    </motion.div>
+    </div>
   );
 }
