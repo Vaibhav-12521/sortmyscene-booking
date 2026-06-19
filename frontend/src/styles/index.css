@@ -102,7 +102,7 @@ a:hover { color: var(--accent-dark); }
 
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow-sm); }
 
-.grid--cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.grid--cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 20px; }
 
 /* lightweight staggered entrance (CSS only, no JS animation lib) */
 .grid--cards > * { animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
@@ -129,12 +129,14 @@ a:hover { color: var(--accent-dark); }
 
 .event-card__top { display: flex; gap: 16px; padding: 22px 22px 0; }
 .event-card__date {
-  flex: 0 0 auto; width: 58px; text-align: center; border-radius: 10px;
-  background: var(--accent-soft); color: var(--accent); padding: 9px 0 7px;
+  flex: 0 0 auto; width: 58px; min-height: 58px; border-radius: 10px;
+  background: var(--accent-soft); color: var(--accent);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px;
+  text-align: center;
   border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
 }
-.event-card__date .m { display: block; font-size: 0.68rem; font-weight: 800; letter-spacing: 1.5px; }
-.event-card__date .d { display: block; font-size: 1.55rem; font-weight: 800; line-height: 1.05; color: var(--accent-dark); }
+.event-card__date .m { font-size: 0.68rem; font-weight: 800; letter-spacing: 1.5px; }
+.event-card__date .d { font-size: 1.55rem; font-weight: 800; line-height: 1; color: var(--accent-dark); }
 .event-card__head { min-width: 0; }
 .event-card__title {
   margin: 0 0 9px; font-size: 1.18rem; font-weight: 700; letter-spacing: -0.3px; color: var(--ink);
@@ -310,7 +312,7 @@ a:hover { color: var(--accent-dark); }
 .errorbox__detail { background: var(--bg-2); border: 1px solid var(--border); border-radius: 8px; padding: 12px; font-size: 0.8rem; color: var(--danger); text-align: left; overflow-x: auto; white-space: pre-wrap; }
 .errorbox__actions { display: flex; gap: 12px; justify-content: center; margin-top: 18px; }
 
-.bookings { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+.bookings { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: 18px; }
 .bookings > * { animation: rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .bookings > *:nth-child(2) { animation-delay: 0.05s; }
 .bookings > *:nth-child(3) { animation-delay: 0.1s; }
@@ -325,13 +327,48 @@ a:hover { color: var(--accent-dark); }
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }
 
+/* Tablets / large phones */
 @media (max-width: 860px) {
-  .booking-layout { grid-template-columns: 1fr; }
+  .main { padding: 28px 18px 64px; }
+  .booking-layout { grid-template-columns: 1fr; gap: 18px; }
   .booking-layout__panel { position: static; }
+  .page__header { gap: 14px; }
 }
-@media (max-width: 480px) {
-  .seat { width: 27px; height: 27px; font-size: 0.6rem; }
+
+/* Phones */
+@media (max-width: 600px) {
+  .main { padding: 22px 14px 56px; }
+  .navbar__inner { padding: 13px 14px; }
+  .navbar__brand { font-size: 1.15rem; }
+  .navbar__actions { gap: 10px; }
+  .navbar__user { display: none; }              /* drop greeting to save room */
+
+  .page__header { flex-direction: column; align-items: stretch; }
+  .page__header .btn { width: 100%; }
+
+  .card { padding: 20px; }
+  .event-card { padding: 0; }
+  .event-card__top { padding: 18px 18px 0; }
+  .event-card__desc { margin: 12px 18px 0; }
+  .event-card__avail { padding: 14px 18px 0; }
+  .event-card__footer { padding: 14px 18px; }
+
+  .grid--cards, .bookings { gap: 14px; }
+
+  .event-detail__header .page__subtitle { font-size: 0.92rem; }
+  .seat { width: 30px; height: 28px; }          /* keep tappable, scroll if needed */
+  .seatmap__stage { max-width: 100%; }
+  .confirmation__actions { flex-direction: column; }
+  .confirmation__actions .btn { width: 100%; }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .navbar__brand { font-size: 1.05rem; }
+  .navbar__actions { gap: 8px; }
+  .navbar__link { font-size: 0.84rem; }
+  .btn { padding: 10px 13px; font-size: 0.88rem; }
+  .seat { width: 27px; height: 26px; font-size: 0.58rem; }
   .seatmap__row { gap: 6px; }
-  .page__header { flex-direction: column; align-items: flex-start; }
-  .main { padding: 28px 16px 64px; }
+  .seatmap__aisle { width: 14px; }
 }
