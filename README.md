@@ -1,7 +1,6 @@
 # SortMyScene - Event Ticket Booking
 
-<!-- Replace OWNER/REPO with your GitHub path to activate the badge -->
-![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/Vaibhav-12521/sortmyscene-booking/actions/workflows/ci.yml/badge.svg)](https://github.com/Vaibhav-12521/sortmyscene-booking/actions/workflows/ci.yml)
 
 A simplified event ticket booking flow focused on **seat reservation** and **booking
 confirmation**, built for the SortMyScene Full Stack Developer hiring task.
