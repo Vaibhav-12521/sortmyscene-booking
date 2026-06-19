@@ -62,7 +62,10 @@ export default function CheckInPage() {
           <p className="checkin__meta">{state.message || 'This ticket could not be found.'}</p>
         )}
 
-        <Link to="/" className="btn btn--ghost btn--block">Back to events</Link>
+        <Link to="/" className="backlink checkin__back">
+          <span className="backlink__icon" aria-hidden>←</span>
+          Back to events
+        </Link>
       </div>
     </div>
   );

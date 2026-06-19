@@ -39,7 +39,10 @@ export default function MyBookingsPage() {
           <h1 className="page__title">My bookings</h1>
           <p className="page__subtitle">Every seat you've confirmed.</p>
         </div>
-        <Link to="/" className="btn btn--ghost">Browse events</Link>
+        <Link to="/" className="backlink" style={{ marginBottom: 0 }}>
+          <span className="backlink__icon" aria-hidden>←</span>
+          Browse events
+        </Link>
       </div>
 
       <Alert variant="error" onClose={() => setError('')}>{error}</Alert>

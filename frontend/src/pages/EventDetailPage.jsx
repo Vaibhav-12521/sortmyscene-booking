@@ -210,7 +210,10 @@ export default function EventDetailPage() {
     return (
       <motion.div className="page" {...pageTransition}>
         <Alert variant="error">{error || 'Event not found.'}</Alert>
-        <Link to="/" className="btn btn--ghost">← Back to events</Link>
+        <Link to="/" className="backlink">
+          <span className="backlink__icon" aria-hidden>←</span>
+          Back to events
+        </Link>
       </motion.div>
     );
   }
@@ -223,7 +226,10 @@ export default function EventDetailPage() {
 
   return (
     <motion.div className="page" {...pageTransition}>
-      <Link to="/" className="backlink">← All events</Link>
+      <Link to="/" className="backlink">
+        <span className="backlink__icon" aria-hidden>←</span>
+        All events
+      </Link>
 
       <div className="event-detail__header">
         <h1 className="page__title">{event.name}</h1>
