@@ -17,6 +17,7 @@ const bookingSchema = new mongoose.Schema(
     seatNumbers: { type: [String], required: true },
 
     reservationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' },
+    checkedInAt: { type: Date, default: null },
   },
   { timestamps: true }
 );

@@ -17,4 +17,6 @@ export const bookingApi = {
   confirm: (reservationId) =>
     api.post('/bookings', { reservationId }).then((r) => r.data),
   mine: () => api.get('/bookings/me').then((r) => r.data),
+  get: (id) => api.get(`/bookings/${id}`).then((r) => r.data),
+  checkin: (id) => api.post(`/bookings/${id}/checkin`).then((r) => r.data),
 };

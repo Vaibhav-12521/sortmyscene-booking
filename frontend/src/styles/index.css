@@ -317,6 +317,55 @@ a:hover { color: var(--accent-dark); }
 .booking-item__seats { display: flex; flex-wrap: wrap; gap: 7px; margin: 16px 0; }
 .booking-item__foot { font-size: 0.76rem; color: var(--text-dim); margin: 0; border-top: 1px solid var(--border); padding-top: 14px; }
 
+.pill--muted { background: var(--bg-2); color: var(--text-soft); }
+
+/* Modal + e-ticket */
+.modal {
+  position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center;
+  background: rgba(24, 18, 14, 0.55); backdrop-filter: blur(3px); padding: 20px;
+  animation: fadeInUp 0.2s ease both;
+}
+.modal__card { position: relative; width: 100%; max-width: 360px; max-height: 92vh; overflow-y: auto; }
+.modal__close {
+  position: absolute; top: 12px; right: 14px; border: 0; background: none;
+  font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--text-dim);
+}
+.ticket { text-align: center; }
+.ticket__title { margin: 6px 0 4px; font-size: 1.25rem; color: var(--ink); }
+.ticket__meta { color: var(--text-soft); font-size: 0.86rem; margin: 0 0 16px; line-height: 1.5; }
+.ticket__qr {
+  position: relative; display: inline-block; padding: 14px; background: #fff;
+  border: 1px solid var(--border); border-radius: 12px; margin: 0 auto 16px;
+}
+.ticket__qr.is-used { opacity: 0.5; }
+.ticket__usedstamp {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-12deg);
+  border: 3px solid var(--success); color: var(--success); font-weight: 800; letter-spacing: 2px;
+  padding: 6px 12px; border-radius: 8px; font-size: 0.9rem; background: rgba(255,255,255,0.85);
+}
+.ticket__seats { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; margin-bottom: 14px; }
+.ticket__ref { font-family: ui-monospace, monospace; font-size: 0.8rem; color: var(--text-dim); margin: 0 0 4px; }
+.ticket__hint { font-size: 0.82rem; color: var(--text-soft); margin: 0; }
+
+/* Check-in result */
+.checkin { max-width: 460px; margin: 24px auto; text-align: center; border-top: 5px solid var(--border); }
+.checkin--ok { border-top-color: var(--success); }
+.checkin--warn { border-top-color: var(--reserved); }
+.checkin--bad { border-top-color: var(--danger); }
+.checkin__icon {
+  width: 70px; height: 70px; margin: 4px auto 14px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 2.2rem; font-weight: 800; color: #fff;
+}
+.checkin--ok .checkin__icon { background: var(--success); }
+.checkin--warn .checkin__icon { background: var(--reserved); }
+.checkin--bad .checkin__icon { background: var(--danger); }
+.checkin__title { margin: 0 0 10px; font-size: 1.5rem; color: var(--ink); }
+.checkin__event { font-size: 1.1rem; font-weight: 700; color: var(--ink); margin: 0 0 4px; }
+.checkin__meta { color: var(--text-soft); font-size: 0.88rem; margin: 0 0 14px; }
+.checkin__seats { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; margin-bottom: 14px; }
+.checkin__note { color: var(--reserved); font-size: 0.85rem; margin: 0 0 6px; }
+.checkin__ref { font-family: ui-monospace, monospace; font-size: 0.8rem; color: var(--text-dim); margin: 0 0 18px; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }

@@ -11,6 +11,7 @@ import EventsPage from './pages/EventsPage.jsx';
 // stays small and loads fast. framer-motion only downloads with these chunks.
 const EventDetailPage = lazy(() => import('./pages/EventDetailPage.jsx'));
 const MyBookingsPage = lazy(() => import('./pages/MyBookingsPage.jsx'));
+const CheckInPage = lazy(() => import('./pages/CheckInPage.jsx'));
 
 export default function App() {
   return (
@@ -40,6 +41,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <MyBookingsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/checkin/:id"
+              element={
+                <ProtectedRoute>
+                  <CheckInPage />
                 </ProtectedRoute>
               }
             />

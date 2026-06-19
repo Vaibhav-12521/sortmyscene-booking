@@ -1,5 +1,8 @@
 # SortMyScene - Event Ticket Booking
 
+<!-- Replace OWNER/REPO with your GitHub path to activate the badge -->
+![CI](https://github.com/OWNER/REPO/actions/workflows/ci.yml/badge.svg)
+
 A simplified event ticket booking flow focused on **seat reservation** and **booking
 confirmation**, built for the SortMyScene Full Stack Developer hiring task.
 
@@ -14,9 +17,10 @@ updates **live across all viewers** over WebSockets.
 
 ### Beyond the brief
 On top of every requirement, this build adds: **real-time seat updates** (Socket.IO),
-a **tiered, priced seat map** (VIP / Premium / Standard with a centre aisle), a
-**"My Bookings"** history page, a **concurrency test suite** proving no double-booking,
-zero-setup **in-memory MongoDB**, and one-command **Docker Compose**.
+a **tiered, priced seat map** (VIP / Premium / Standard with a centre aisle), **QR-code
+e-tickets with a gate check-in flow**, a **"My Bookings"** history page, a **concurrency
+test suite** proving no double-booking, **GitHub Actions CI**, zero-setup **in-memory
+MongoDB**, one-command **Docker Compose**, and an **Expo React Native companion app**.
 
 ---
 
@@ -95,6 +99,8 @@ All booking actions require a `Authorization: Bearer <token>` header.
 | POST   | `/api/reserve`      | ✓    | Hold seats for 10 min - `{ eventId, seatNumbers }`     |
 | POST   | `/api/bookings`     | ✓    | Confirm a reservation - `{ reservationId }`            |
 | GET    | `/api/bookings/me`  | ✓    | The current user's booking history                     |
+| GET    | `/api/bookings/:id` | ✓    | Fetch a single booking (e-ticket)                      |
+| POST   | `/api/bookings/:id/checkin` | ✓ | Validate / check in a ticket at the gate (QR scan) |
 
 Error responses are consistent: `{ "error": { "message", "details?" } }`.
 Conflicts (`409`) on reserve include the offending seats in `details.seats`.
@@ -275,6 +281,8 @@ is what Docker Compose uses.)
 ```
 SortMyScene/
 ├── docker-compose.yml     # mongo + api + web, one command
+├── .github/workflows/     # CI: backend tests + frontend build on push
+├── mobile/                # Expo React Native companion app (see mobile/README.md)
 ├── backend/
 │   ├── Dockerfile
 │   ├── src/

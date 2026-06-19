@@ -4,6 +4,7 @@ import { bookingApi } from '../api/endpoints.js';
 import { toApiError } from '../api/client.js';
 import Alert from '../components/Alert.jsx';
 import Spinner from '../components/Spinner.jsx';
+import TicketModal from '../components/TicketModal.jsx';
 
 const dateFmt = new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
 
@@ -11,6 +12,7 @@ export default function MyBookingsPage() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [ticket, setTicket] = useState(null);
 
   useEffect(() => {
     let active = true;
@@ -55,7 +57,9 @@ export default function MyBookingsPage() {
             <div key={b.id} className="card booking-item">
               <div className="booking-item__head">
                 <h3>{b.event?.name || 'Event removed'}</h3>
-                <span className="pill pill--success">{b.seatNumbers.length} seat{b.seatNumbers.length === 1 ? '' : 's'}</span>
+                <span className={`pill ${b.checkedInAt ? 'pill--muted' : 'pill--success'}`}>
+                  {b.checkedInAt ? 'Checked in' : `${b.seatNumbers.length} seat${b.seatNumbers.length === 1 ? '' : 's'}`}
+                </span>
               </div>
               {b.event && (
                 <p className="booking-item__meta">
@@ -70,10 +74,15 @@ export default function MyBookingsPage() {
               <p className="booking-item__foot">
                 Booked {dateFmt.format(new Date(b.createdAt))} · Ref {b.id.slice(-8)}
               </p>
+              <button className="btn btn--primary btn--block" onClick={() => setTicket(b)}>
+                🎟 Show ticket
+              </button>
             </div>
           ))}
         </div>
       )}
+
+      {ticket && <TicketModal booking={ticket} onClose={() => setTicket(null)} />}
     </div>
   );
 }
