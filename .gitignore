@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+**/node_modules/
+
+# env / secrets
+.env
+**/.env
+!**/.env.example
+
+# builds
+dist/
+**/dist/
+build/
+
+# logs
+*.log
+npm-debug.log*
+
+# misc
+.DS_Store
+coverage/
+.vscode/
+.idea/

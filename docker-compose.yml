@@ -1,0 +1,44 @@
+# One-command full stack: MongoDB + API (with realtime) + web.
+#   docker compose up --build
+# Then open http://localhost:8080  (demo@sortmyscene.test / password123)
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ['CMD', 'mongosh', '--eval', "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      NODE_ENV: production
+      PORT: 4000
+      MONGODB_URI: mongodb://mongo:27017/sortmyscene
+      JWT_SECRET: change-me-in-production
+      RESERVATION_TTL_MINUTES: 10
+      # Seed demo data on first boot (only if the DB is empty).
+      SEED_ON_START: 'true'
+      # Allow the web origin for CORS / Socket.IO.
+      CLIENT_ORIGIN: http://localhost:8080
+    ports:
+      - '4000:4000'
+
+  web:
+    build: ./frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - '8080:80'
+
+volumes:
+  mongo_data:
